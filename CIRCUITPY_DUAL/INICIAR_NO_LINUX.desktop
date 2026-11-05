@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=INICIAR NO LINUX
+Comment=Abre a demonstracao desta unidade USB
+Icon=utilities-terminal
+Terminal=true
+StartupNotify=false
+Exec=python3 -I -X utf8 -c "import os, runpy, sys, urllib.parse, urllib.request\ntry:\n    if len(sys.argv) != 2: raise ValueError('Local do atalho nao informado.')\n    value = sys.argv[1]\n    if not value or chr(0) in value: raise ValueError('Local do atalho invalido.')\n    uri = urllib.parse.urlsplit(value)\n    if uri.scheme:\n        if uri.scheme != 'file' or uri.netloc.lower() not in ('', 'localhost') or uri.query or uri.fragment: raise ValueError('Use o atalho de uma unidade local.')\n        path = urllib.request.url2pathname(uri.path)\n    else:\n        path = value\n    if chr(0) in path or not os.path.isabs(path): raise ValueError('O atalho precisa ter um caminho local absoluto.')\n    sys.argv[1] = path\n    runpy.run_path(os.path.join(os.path.dirname(path), 'ABRIR_NO_LINUX.py'), run_name='__main__')\nexcept Exception as exc:\n    print('ERRO ao abrir a demonstracao:', exc, file=sys.stderr, flush=True)\n    try: input('Pressione Enter para fechar...')\n    except (EOFError, KeyboardInterrupt): pass\n    raise SystemExit(1)" %k

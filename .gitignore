@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+*.log
+*.uf2
+*.bin
+backup_privado/
+dados_demo/
+aplicacao/
